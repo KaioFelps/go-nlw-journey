@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: ${JOURNEY_DATABASE_NAME}
+    image: "postgres:latest"
+    ports:
+      - ${JOURNEY_DATABASE_PORT}:5432
+    environment:
+      POSTGRES_USER: ${JOURNEY_DATABASE_USER}
+      POSTGRES_DB: ${JOURNEY_DATABASE_NAME}
+      POSTGRES_PASSWORD: ${JOURNEY_DATABASE_PASSWORD}
