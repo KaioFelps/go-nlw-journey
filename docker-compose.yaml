@@ -1,6 +1,13 @@
 version: "3.8"
 
 services:
+  smtp:
+    container_name: mail-service
+    image: rnwood/smtp4dev
+    ports:
+      - ${MAILER_PORT:-2525}:25
+      - 5000:80
+
   db:
     container_name: ${JOURNEY_DATABASE_NAME}
     image: "postgres:latest"
