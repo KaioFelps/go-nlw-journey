@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"nlw-journey/internal/api"
 	"nlw-journey/internal/api/spec"
+	"nlw-journey/internal/mail/mailpit"
 	"os"
 	"os/signal"
 	"syscall"
@@ -72,7 +73,9 @@ func run(ctx context.Context) error {
 		return err
 	}
 
-	si := api.NewAPI(pool, logger)
+	var mailer = mailpit.NewMailPit(pool, logger)
+
+	si := api.NewAPI(pool, logger, mailer)
 
 	router := chi.NewRouter()
 	router.Use(middleware.RequestID, middleware.Recoverer, httputils.ChiLogger(logger))
