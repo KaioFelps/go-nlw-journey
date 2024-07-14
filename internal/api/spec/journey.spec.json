@@ -11,7 +11,10 @@
         "type": "object",
         "properties": {
           "message": {
-            "type": "string"
+            "type": "string",
+            "x-go-extra-tags": {
+              "validate": "required"
+            }
           }
         },
         "required": [
@@ -25,14 +28,23 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "x-go-extra-tags": {
+              "validate": "required,uuid"
+            }
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "x-go-extra-tags": {
+              "validate": "required"
+            }
           },
           "occurs_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-go-extra-tags": {
+              "validate": "required"
+            }
           }
         },
         "required": [
@@ -42,15 +54,21 @@
         ],
         "additionalProperties": false
       },
-      "GetTripActivitiesOutter": {
+      "GetTripActivitiesOuter": {
         "type": "object",
         "properties": {
           "date": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-go-extra-tags": {
+              "validate": "required"
+            }
           },
           "activities": {
             "type": "array",
+            "x-go-extra-tags": {
+              "validate": "required,dive"
+            },
             "items": {
               "$ref": "#/components/schemas/GetTripActivitiesInner"
             }
@@ -68,7 +86,7 @@
           "activities": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/GetTripActivitiesOutter"
+              "$ref": "#/components/schemas/GetTripActivitiesOuter"
             }
           }
         },
@@ -119,22 +137,37 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "x-go-extra-tags": {
+              "validate": "required,uuid"
+            }
           },
           "destination": {
             "type": "string",
-            "minLength": 4
+            "minLength": 4,
+            "x-go-extra-tags": {
+              "validate": "required,min=4"
+            }
           },
           "starts_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-go-extra-tags": {
+              "validate": "required"
+            }
           },
           "ends_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-go-extra-tags": {
+              "validate": "required"
+            }
           },
           "is_confirmed": {
-            "type": "boolean"
+            "type": "boolean",
+            "x-go-extra-tags": {
+              "validate": "required,boolean"
+            }
           }
         },
         "required": [
@@ -143,6 +176,32 @@
           "starts_at",
           "ends_at",
           "is_confirmed"
+        ],
+        "additionalProperties": false
+      },
+      "CreateTripResponse": {
+        "type": "object",
+        "properties": {
+          "tripId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "tripId"
+        ],
+        "additionalProperties": false
+      },
+      "CreateTripActivitiesResponse": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "activityId"
         ],
         "additionalProperties": false
       },
@@ -185,7 +244,10 @@
           {
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "x-go-extra-tags": {
+                "validate": "uuid"
+              }
             },
             "in": "path",
             "name": "tripId",
@@ -229,7 +291,10 @@
           {
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "x-go-extra-tags": {
+                "validate": "required,uuid"
+              }
             },
             "in": "path",
             "name": "participantId",
@@ -277,7 +342,10 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "format": "email"
+                    "format": "email",
+                    "x-go-extra-tags": {
+                      "validate": "required,email"
+                    }
                   }
                 },
                 "required": [
@@ -293,7 +361,10 @@
           {
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "x-go-extra-tags": {
+                "validate": "required,uuid"
+              }
             },
             "in": "path",
             "name": "tripId",
@@ -341,10 +412,16 @@
                 "properties": {
                   "occurs_at": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "x-go-extra-tags": {
+                      "validate": "required"
+                    }
                   },
                   "title": {
-                    "type": "string"
+                    "type": "string",
+                    "x-go-extra-tags": {
+                      "validate": "required"
+                    }
                   }
                 },
                 "required": [
@@ -361,7 +438,10 @@
           {
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "x-go-extra-tags": {
+                "validate": "required,uuid"
+              }
             },
             "in": "path",
             "name": "tripId",
@@ -374,17 +454,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "activityId": {
-                      "type": "string",
-                      "format": "uuid"
-                    }
-                  },
-                  "required": [
-                    "activityId"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/CreateTripActivitiesResponse"
                 }
               }
             }
@@ -411,7 +481,10 @@
           {
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "x-go-extra-tags": {
+                "validate": "required,uuid"
+              }
             },
             "in": "path",
             "name": "tripId",
@@ -455,11 +528,17 @@
                 "type": "object",
                 "properties": {
                   "title": {
-                    "type": "string"
+                    "type": "string",
+                    "x-go-extra-tags": {
+                      "validate": "required"
+                    }
                   },
                   "url": {
                     "type": "string",
-                    "format": "uri"
+                    "format": "uri",
+                    "x-go-extra-tags": {
+                      "validate": "required,uri"
+                    }
                   }
                 },
                 "required": [
@@ -476,7 +555,10 @@
           {
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "x-go-extra-tags": {
+                "validate": "required,uuid"
+              }
             },
             "in": "path",
             "name": "tripId",
@@ -525,7 +607,10 @@
           {
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "x-go-extra-tags": {
+                "validate": "required,uuid"
+              }
             },
             "in": "path",
             "name": "tripId",
@@ -570,28 +655,52 @@
                 "properties": {
                   "destination": {
                     "type": "string",
+                    "x-go-extra-tags": {
+                      "validate": "required,min=4"
+                    },
                     "minLength": 4
                   },
                   "starts_at": {
                     "type": "string",
+                    "x-go-extra-tags": {
+                      "validate": "required"
+                    },
                     "format": "date-time"
                   },
                   "ends_at": {
                     "type": "string",
+                    "x-go-extra-tags": {
+                      "validate": "required"
+                    },
                     "format": "date-time"
                   },
                   "emails_to_invite": {
                     "type": "array",
+                    "x-go-extra-tags": {
+                      "validate": "required,dive,email"
+                    },
                     "items": {
                       "type": "string",
-                      "format": "email"
+                      "format": "email",
+                      "x-go-type": {
+                        "type": "string"
+                      }
                     }
                   },
                   "owner_name": {
-                    "type": "string"
+                    "type": "string",
+                    "x-go-extra-tags": {
+                      "validate": "required"
+                    }
                   },
                   "owner_email": {
                     "type": "string",
+                    "x-go-extra-tags": {
+                      "validate": "required,email"
+                    },
+                    "x-go-type": {
+                      "type": "string"
+                    },
                     "format": "email"
                   }
                 },
@@ -615,17 +724,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "tripId": {
-                      "type": "string",
-                      "format": "uuid"
-                    }
-                  },
-                  "required": [
-                    "tripId"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/CreateTripResponse"
                 }
               }
             }
@@ -653,7 +752,10 @@
           {
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "x-go-extra-tags": {
+                "validate": "required,uuid"
+              }
             },
             "in": "path",
             "name": "tripId",
@@ -705,15 +807,24 @@
                 "properties": {
                   "destination": {
                     "type": "string",
-                    "minLength": 4
+                    "minLength": 4,
+                    "x-go-extra-tags": {
+                      "validate": "required,min=4"
+                    }
                   },
                   "starts_at": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "x-go-extra-tags": {
+                      "validate": "required"
+                    }
                   },
                   "ends_at": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "x-go-extra-tags": {
+                      "validate": "required"
+                    }
                   }
                 },
                 "required": [
@@ -731,7 +842,10 @@
           {
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "x-go-extra-tags": {
+                "validate": "required,uuid"
+              }
             },
             "in": "path",
             "name": "tripId",
@@ -775,7 +889,10 @@
           {
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "x-go-extra-tags": {
+                "validate": "required,uuid"
+              }
             },
             "in": "path",
             "name": "tripId",
