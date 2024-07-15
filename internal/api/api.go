@@ -6,7 +6,6 @@ import (
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.uber.org/zap"
-	"net/http"
 	"nlw-journey/internal/api/spec"
 	"nlw-journey/internal/pgstore"
 )
@@ -49,14 +48,4 @@ func NewAPI(pool *pgxpool.Pool, logger *zap.Logger, mailer Mailer) API {
 		_validator,
 		mailer,
 	}
-}
-
-func (api API) PostTripsTripIDLinks(w http.ResponseWriter, r *http.Request, tripID string) *spec.Response {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (api API) GetTripsTripIDParticipants(w http.ResponseWriter, r *http.Request, tripID string) *spec.Response {
-	//TODO implement me
-	panic("implement me")
 }
