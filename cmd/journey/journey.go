@@ -62,8 +62,7 @@ func run(ctx context.Context) error {
 		os.Getenv("JOURNEY_DATABASE_USER"),
 		os.Getenv("JOURNEY_DATABASE_NAME"),
 		os.Getenv("JOURNEY_DATABASE_PASSWORD"),
-	),
-	)
+	))
 
 	if err != nil {
 		return err

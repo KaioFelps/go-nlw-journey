@@ -54,39 +54,13 @@
         ],
         "additionalProperties": false
       },
-      "GetTripActivitiesOuter": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "format": "date-time",
-            "x-go-extra-tags": {
-              "validate": "required"
-            }
-          },
-          "activities": {
-            "type": "array",
-            "x-go-extra-tags": {
-              "validate": "required,dive"
-            },
-            "items": {
-              "$ref": "#/components/schemas/GetTripActivitiesInner"
-            }
-          }
-        },
-        "required": [
-          "date",
-          "activities"
-        ],
-        "additionalProperties": false
-      },
       "GetTripActivitiesResponse": {
         "type": "object",
         "properties": {
           "activities": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/GetTripActivitiesOuter"
+              "$ref": "#/components/schemas/GetTripActivitiesInner"
             }
           }
         },
